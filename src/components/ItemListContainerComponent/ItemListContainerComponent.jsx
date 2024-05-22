@@ -1,3 +1,4 @@
+import { width } from "@fortawesome/free-brands-svg-icons/fa42Group";
 import React from "react";
 
 const ItemListContainerComponent = ({ greeting }) => {
@@ -8,8 +9,10 @@ const ItemListContainerComponent = ({ greeting }) => {
     padding: "1rem",
     margin: "auto",
     textAlign: "center",
-    borderRadius: "10px",
+    borderRadius: "15px",
     border: "1px solid white",
+    width: "100vw",
+    height: "80vh"
   };
 
   return <div style={CustomStyles}>{greeting}</div>;
