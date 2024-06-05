@@ -1,11 +1,13 @@
-import { width } from "@fortawesome/free-brands-svg-icons/fa42Group";
 import React from "react";
+import getAllProducts from "../../services/productsServices";
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 const ItemListContainerComponent = ({ greeting }) => {
-  const CustomStyles = {
+  const customStyles = {
     color: "white",
     fontSize: "2rem",
-    backgroundColor: "dark",
+    backgroundColor: "black",
     padding: "1rem",
     margin: "auto",
     textAlign: "center",
@@ -15,7 +17,37 @@ const ItemListContainerComponent = ({ greeting }) => {
     height: "80vh"
   };
 
-  return <div style={CustomStyles}>{greeting}</div>;
+  const [products, setProducts] = React.useState([]);
+  const [error, setError] = React.useState(null);
+
+  React.useEffect(() => {
+    getAllProducts()
+      .then((res) => setProducts(res.data.products))
+      .catch((err) => {
+        console.error(err);
+        setError("Failed to fetch products");
+      });
+  }, []);
+
+  return (
+    <div style={customStyles}>
+      <h1>{greeting}</h1>
+      {error ? (
+        <p>{error}</p>
+      ) : (
+        products.map((product) => (
+          <Card key={product.id} style={{ width: '18rem', margin: '1rem auto' }}>
+            <Card.Img variant="top" src={product.thumbnail} />
+            <Card.Body>
+              <Card.Title>{product.title}</Card.Title>
+              <Card.Text>{product.description}</Card.Text>
+              <Button variant="primary">Ir al detalle</Button>
+            </Card.Body>
+          </Card>
+        ))
+      )}
+    </div>
+  );
 };
 
 export default ItemListContainerComponent;
