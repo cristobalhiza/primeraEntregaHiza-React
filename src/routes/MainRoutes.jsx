@@ -11,6 +11,7 @@ const MainRoutes = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/item/:itemId" element={<ItemDetailsContainer />} />
+        <Route path="/category/:itemId" element={<ItemDetailsContainer />} />
       </Routes>
     </Router>
   );

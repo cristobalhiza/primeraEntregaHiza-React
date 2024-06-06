@@ -33,25 +33,29 @@ const NavBarComponent = () => {
       data-bs-theme="dark"
     >
       <Container>
-        <FontAwesomeIcon
-          icon={faShop}
-          style={{
-            color: "#7ADFBB",
-            fontSize: "1.4rem",
-            marginRight: "0.6rem",
-          }}
-        />
-        <Navbar.Brand href="#home">UniversalStore CHL</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/" style={{ color: "white" }}>
+          <FontAwesomeIcon
+            icon={faShop}
+            style={{
+              color: "#7ADFBB",
+              fontSize: "1.4rem",
+              marginRight: "0.6rem",
+            }}
+          />
+          UniversalStore CHL
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Link to="/">Inicio</Link>
+            <Nav.Link as={Link} to="/">
+              Inicio
+            </Nav.Link>
             <Nav.Link href="#link">Ofertas</Nav.Link>
             <NavDropdown title="Categorías" id="basic-nav-dropdown">
               {categories.map((category, index) => {
                 return (
-                  <NavDropdown.Item key={index}>
-                    <Link to={category}>{category}</Link>
+                  <NavDropdown.Item as={Link} to={`/${category}`} key={index}>
+                    {category}
                   </NavDropdown.Item>
                 );
               })}

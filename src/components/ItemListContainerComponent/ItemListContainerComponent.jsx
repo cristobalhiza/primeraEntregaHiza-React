@@ -1,17 +1,16 @@
 import React from "react";
-import {getAllProducts} from "../../services/productsServices";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
 import { Link } from "react-router-dom";
+import useProducts from '../../hooks/useProducts';
 
 const ItemListContainerComponent = ({ greeting }) => {
   const customStyles = {
     color: "white",
-    fontSize: "2rem",
+    fontSize: "1.6rem",
     backgroundColor: "black",
     padding: "1rem",
     margin: "auto",
@@ -19,20 +18,10 @@ const ItemListContainerComponent = ({ greeting }) => {
     borderRadius: "15px",
     border: "1px solid white",
     width: "100vw",
-    height: "auto", // Adjusted for better responsiveness
+    height: "auto",
   };
 
-  const [products, setProducts] = React.useState([]);
-  const [error, setError] = React.useState(null);
-
-  React.useEffect(() => {
-    getAllProducts()
-      .then((res) => setProducts(res.data.products))
-      .catch((err) => {
-        console.error(err);
-        setError("Failed to fetch products");
-      });
-  }, []);
+  const { products, error } = useProducts();
 
   return (
     <div style={customStyles}>
