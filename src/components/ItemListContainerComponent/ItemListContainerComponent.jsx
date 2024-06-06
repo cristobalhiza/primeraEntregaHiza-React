@@ -1,10 +1,12 @@
 import React from "react";
-import getAllProducts from "../../services/productsServices";
+import {getAllProducts} from "../../services/productsServices";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+
+import { Link } from "react-router-dom";
 
 const ItemListContainerComponent = ({ greeting }) => {
   const customStyles = {
@@ -47,7 +49,7 @@ const ItemListContainerComponent = ({ greeting }) => {
                   <Card.Body>
                     <Card.Title>{product.title}</Card.Title>
                     <Card.Text>{product.description}</Card.Text>
-                    <Button variant="primary">Ir al detalle</Button>
+                    <Link to={`/item/${product.id}`}>Ir al detalle</Link>
                   </Card.Body>
                 </Card>
               </Col>
