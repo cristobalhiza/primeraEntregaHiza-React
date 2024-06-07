@@ -1,19 +1,16 @@
 import React from "react";
-import { getProductById } from "../services/productsServices";
 import { useParams } from "react-router-dom";
+import useProductDetails from "../hooks/useProductDetails";
 
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 
 const ItemDetailsContainer = () => {
-  const [product, setProduct] = React.useState({});
   const { itemId } = useParams();
+  const { product, loading, error } = useProductDetails(itemId);
 
-  React.useEffect(() => {
-    getProductById(itemId)
-      .then((res) => setProduct(res.data))
-      .catch((err) => console.log(err));
-  }, [itemId]);
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <Card style={{ width: "18rem" }}>
@@ -24,7 +21,7 @@ const ItemDetailsContainer = () => {
       </Card.Body>
       <ListGroup className="list-group-flush">
         <ListGroup.Item>{product.price}</ListGroup.Item>
-        <ListGroup.Item>D{product.stock}</ListGroup.Item>
+        <ListGroup.Item>{product.stock}</ListGroup.Item>
         <ListGroup.Item>{product.discountPercentage}</ListGroup.Item>
       </ListGroup>
       <Card.Body>
