@@ -15,7 +15,7 @@ const useProductDetails = (itemId) => {
         setProduct(res.data);
       } catch (err) {
         console.error(err);
-        setError("Failed to fetch product details");
+        setError("Error de red: Fallo al recuperar");
       } finally {
         setLoading(false);
       }

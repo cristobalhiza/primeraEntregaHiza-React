@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import getAllProducts from "../services/productsServices";
+import { useState, useEffect } from 'react';
+import { getProductsByCategory } from '../services/productsServices';
 
-const useProducts = () => {
+export const useProductsByCategory = (category) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,20 +11,20 @@ const useProducts = () => {
       setLoading(true);
       setError(null);
       try {
-        const res = await getAllProducts();
-        setProducts(res.data.products);
+        const res = await getProductsByCategory(category);
+        setProducts(res.data.products); 
       } catch (err) {
         console.error(err);
-        setError("Error al recuperar productos");
+        setError("Error al recuperar productos por categoría");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchProducts();
-  }, []);
+    if (category) {
+      fetchProducts();
+    }
+  }, [category]);
 
   return { products, loading, error };
 };
-
-export default useProducts;

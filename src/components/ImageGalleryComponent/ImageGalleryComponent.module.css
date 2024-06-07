@@ -1,0 +1,27 @@
+.ImageGalleryComponent {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.ImageGalleryComponent__thumbnails {
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  align-items: center;
+}
+
+.ImageGalleryComponent__thumbnail {
+  width: 100%;
+  max-width: 60px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.ImageGalleryComponent__thumbnail--selected {
+  border: 2px solid #7ADFBB;
+}
+
+.ImageGalleryComponent__image {
+  height: 60vh;
+  object-fit: contain;
+}

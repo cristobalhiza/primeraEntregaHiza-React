@@ -4,6 +4,7 @@ import useProductDetails from "../hooks/useProductDetails";
 
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
+import ImageGallery from "../components/ImageGalleryComponent/ImageGalleryComponent";
 
 const ItemDetailsContainer = () => {
   const { itemId } = useParams();
@@ -13,16 +14,16 @@ const ItemDetailsContainer = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <Card style={{ width: "18rem" }}>
-      <Card.Img variant="top" src={product.thumbnail} />
+    <Card>
       <Card.Body>
         <Card.Title>{product.title}</Card.Title>
+        <ImageGallery images={product.images} />
         <Card.Text>{product.description}</Card.Text>
       </Card.Body>
       <ListGroup className="list-group-flush">
-        <ListGroup.Item>{product.price}</ListGroup.Item>
-        <ListGroup.Item>{product.stock}</ListGroup.Item>
-        <ListGroup.Item>{product.discountPercentage}</ListGroup.Item>
+        <ListGroup.Item>Precio: ${product.price}</ListGroup.Item>
+        <ListGroup.Item>Stock: {product.stock}</ListGroup.Item>
+        <ListGroup.Item>Descuento: {product.discountPercentage}%</ListGroup.Item>
       </ListGroup>
       <Card.Body>
         <Card.Link href="#">Comprar Ahora</Card.Link>
