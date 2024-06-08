@@ -12,7 +12,7 @@ const MainRoutes = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/item/:itemId" element={<ItemDetailsContainer />} />
-        <Route path="/category/:category" element={<CategoryPage />} /> 
+        <Route path="/category/:category" element={<CategoryPage />} />
       </Routes>
     </Router>
   );

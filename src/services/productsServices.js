@@ -22,7 +22,7 @@ export const getAllCategories = () => {
   return axios.get('https://dummyjson.com/products/category-list');
 };
 
-export async function getProductsByCategory (category) {
+export async function getProductsByCategory(category) {
   return axios.get(`https://dummyjson.com/products/category/${category}`)
 }
 

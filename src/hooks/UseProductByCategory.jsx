@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { getProductsByCategory } from '../services/productsServices';
+import { useState, useEffect } from "react";
+import { getProductsByCategory } from "../services/productsServices";
 
 const useProductsByCategory = (category) => {
   const [products, setProducts] = useState([]);
@@ -10,7 +10,7 @@ const useProductsByCategory = (category) => {
     setLoading(true);
     getProductsByCategory(category)
       .then((res) => {
-        setProducts(res.data.products || []); // Asegurarse de que siempre sea un array
+        setProducts(res.data.products || []);
         setLoading(false);
       })
       .catch((err) => {
