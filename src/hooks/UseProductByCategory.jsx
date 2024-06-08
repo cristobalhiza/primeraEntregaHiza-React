@@ -1,30 +1,25 @@
 import { useState, useEffect } from 'react';
 import { getProductsByCategory } from '../services/productsServices';
 
-export const useProductsByCategory = (category) => {
+const useProductsByCategory = (category) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const res = await getProductsByCategory(category);
-        setProducts(res.data.products); 
-      } catch (err) {
-        console.error(err);
-        setError("Error al recuperar productos por categoría");
-      } finally {
+    setLoading(true);
+    getProductsByCategory(category)
+      .then((res) => {
+        setProducts(res.data.products || []); // Asegurarse de que siempre sea un array
         setLoading(false);
-      }
-    };
-
-    if (category) {
-      fetchProducts();
-    }
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
   }, [category]);
 
   return { products, loading, error };
 };
+
+export default useProductsByCategory;

@@ -54,7 +54,11 @@ const NavBarComponent = () => {
             <NavDropdown title="Categorías" id="basic-nav-dropdown">
               {categories.map((category, index) => {
                 return (
-                  <NavDropdown.Item as={Link} to={`/${category}`} key={index}>
+                  <NavDropdown.Item
+                    as={Link}
+                    to={`/category/${category}`}
+                    key={index}
+                  >
                     {category}
                   </NavDropdown.Item>
                 );
