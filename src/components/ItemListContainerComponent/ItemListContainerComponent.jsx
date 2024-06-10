@@ -27,6 +27,10 @@ const ItemListContainerComponent = ({ products }) => {
     );
   }
 
+  const calculateDiscountedPrice = (price, discount) => {
+    return (price * (1 - discount / 100)).toFixed(2);
+  };
+
   return (
     <div style={customStyles}>
       <h1>Nuestro Productos</h1>
@@ -38,7 +42,21 @@ const ItemListContainerComponent = ({ products }) => {
                 <Card.Img variant="top" src={product.thumbnail} />
                 <Card.Body>
                   <Card.Title>{product.title}</Card.Title>
-                  <Card.Text>{product.description}</Card.Text>
+                  <Card.Text>
+                    Precio:{" "}
+                    <span style={{ textDecoration: "line-through" }}>
+                      ${product.price}
+                    </span>
+                    <span style={{ fontWeight: "bold", color: "red" }}>
+                      {" "}
+                      $
+                      {calculateDiscountedPrice(
+                        product.price,
+                        product.discountPercentage
+                      )}
+                    </span>
+                    <span> ({product.discountPercentage}% Off)</span>
+                  </Card.Text>
                   <Link to={`/item/${product.id}`}>Ir al detalle</Link>
                 </Card.Body>
               </Card>

@@ -13,6 +13,22 @@ const ItemDetailsContainer = () => {
   if (loading) return <div>Cargando...</div>;
   if (error) return <div>{error}</div>;
 
+  const getStockMessage = (stock) => {
+    if (stock === 0) {
+      return "Producto agotado";
+    } else if (stock === 1) {
+      return "Última unidad disponible";
+    } else if (stock >= 2 && stock <= 10) {
+      return "Últimas unidades disponibles";
+    } else {
+      return "Producto disponible";
+    }
+  };
+
+  const calculateDiscountedPrice = (price, discount) => {
+    return (price * (1 - discount / 100)).toFixed(2);
+  };
+
   return (
     <Card style={{ backgroundColor: "#EEEEEE" }}>
       <Card.Body>
@@ -25,13 +41,12 @@ const ItemDetailsContainer = () => {
         style={{ backgroundColor: "#EEEEEE" }}
       >
         <ListGroup.Item style={{ backgroundColor: "#EEEEEE" }}>
-          Precio: ${product.price}
+          Precio: <span style={{ textDecoration: "line-through" }}>${product.price}</span> 
+          <span style={{ fontWeight: "bold", color: "red" }}> ${calculateDiscountedPrice(product.price, product.discountPercentage)}</span> 
+          <span> ({product.discountPercentage}% de descuento)</span>
         </ListGroup.Item>
         <ListGroup.Item style={{ backgroundColor: "#EEEEEE" }}>
-          Stock: {product.stock}
-        </ListGroup.Item>
-        <ListGroup.Item style={{ backgroundColor: "#EEEEEE" }}>
-          Descuento: {product.discountPercentage}%
+          Stock: {getStockMessage(product.stock)}
         </ListGroup.Item>
       </ListGroup>
       <Card.Body>
