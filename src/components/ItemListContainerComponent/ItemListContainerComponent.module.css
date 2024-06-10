@@ -1,0 +1,87 @@
+.container {
+    color: #EEEEEE;
+    background-color: #31363F;
+    padding: 1rem;
+    margin: auto;
+    text-align: center;
+    border-radius: 15px;
+    border: 1px solid white;
+    width: 100%;
+    height: auto;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+}
+
+.col {
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.card {
+    width: 100%;
+    background-color: #EEEEEE;
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+    width: 100%;
+    height: auto;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-title {
+    font-size: 1.25em;
+    font-weight: bold;
+    margin: 0 0 10px;
+}
+
+.card-text {
+    font-size: 1em;
+    color: #333;
+}
+
+.card-text span {
+    display: block;
+    margin: 5px 0;
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #888;
+}
+
+.discounted-price {
+    font-weight: bold;
+    color: red;
+}
+
+.discount-percentage {
+    font-size: 0.9em;
+    color: #888;
+}
+
+.card-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.card-link:hover {
+    text-decoration: underline;
+}

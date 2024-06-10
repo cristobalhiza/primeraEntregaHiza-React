@@ -5,9 +5,8 @@ import useProductsByCategory from "../hooks/UseProductByCategory";
 
 const CategoryPage = () => {
   const { category } = useParams();
-  const { products, loading, error } = useProductsByCategory(category);
+  const { products, error } = useProductsByCategory(category);
 
-  if (loading) return <div>Cargando...</div>;
   if (error) return <div>{error}</div>;
 
   return (

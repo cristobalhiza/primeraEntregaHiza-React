@@ -7,9 +7,8 @@ const Home = () => {
     document.title = "Inicio";
   }, []);
 
-  const { products, loading, error } = useProducts();
+  const { products, error } = useProducts();
 
-  if (loading) return <div>Cargando...</div>;
   if (error) return <div>{error}</div>;
 
   return (

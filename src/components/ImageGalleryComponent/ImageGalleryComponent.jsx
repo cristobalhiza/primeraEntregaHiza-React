@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Row, Col, Image } from "react-bootstrap";
-import styles from "./ImageGalleryComponent.module.css"; // Importa el CSS Module
+import styles from "./ImageGalleryComponent.module.css";
 
 const ImageGalleryComponent = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState(images[0]);

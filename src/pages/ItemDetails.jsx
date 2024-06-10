@@ -5,13 +5,27 @@ import useProductDetails from "../hooks/useProductDetails";
 import Card from "react-bootstrap/Card";
 import ListGroup from "react-bootstrap/ListGroup";
 import ImageGallery from "../components/ImageGalleryComponent/ImageGalleryComponent";
+import styles from "./styles/itemDetails.module.css";
+import withFadeLoader from "../hoc/withFadeLoader";
 
-const ItemDetailsContainer = () => {
+const ItemDetailsContainer = ({ product, error }) => {
   const { itemId } = useParams();
-  const { product, loading, error } = useProductDetails(itemId);
+  const { product: fetchedProduct, loading, error: fetchError } = useProductDetails(itemId);
 
-  if (loading) return <div>Cargando...</div>;
-  if (error) return <div>{error}</div>;
+  const productToUse = product || fetchedProduct;
+  const errorToUse = error || fetchError;
+
+  if (errorToUse) {
+    return (
+      <div className={styles.errorContainer}>
+        <p>{errorToUse}</p>
+      </div>
+    );
+  }
+
+  if (!productToUse) {
+    return null; //
+  }
 
   const getStockMessage = (stock) => {
     if (stock === 0) {
@@ -30,31 +44,28 @@ const ItemDetailsContainer = () => {
   };
 
   return (
-    <Card style={{ backgroundColor: "#EEEEEE" }}>
+    <Card className={styles.card}>
       <Card.Body>
-        <Card.Title style={{ fontWeight: "bold" }}>{product.title}</Card.Title>
-        <ImageGallery images={product.images} />
-        <Card.Text>{product.description}</Card.Text>
+        <Card.Title className={styles.cardTitle}>{productToUse.title}</Card.Title>
+        <ImageGallery images={productToUse.images || []} className={styles.imageGallery} />
+        <Card.Text className={styles.cardText}>{productToUse.description}</Card.Text>
       </Card.Body>
-      <ListGroup
-        className="list-group-flush"
-        style={{ backgroundColor: "#EEEEEE" }}
-      >
-        <ListGroup.Item style={{ backgroundColor: "#EEEEEE" }}>
-          Precio: <span style={{ textDecoration: "line-through" }}>${product.price}</span> 
-          <span style={{ fontWeight: "bold", color: "red" }}> ${calculateDiscountedPrice(product.price, product.discountPercentage)}</span> 
-          <span> ({product.discountPercentage}% de descuento)</span>
+      <ListGroup className={styles.listGroupFlush}>
+        <ListGroup.Item className={styles.listGroupItem}>
+          Precio: <span className={styles.price}>${productToUse.price}</span> 
+          <span className={styles.discountedPrice}>${calculateDiscountedPrice(productToUse.price, productToUse.discountPercentage)}</span> 
+          <span className={styles.discountPercentage}> ({productToUse.discountPercentage}% de descuento)</span>
         </ListGroup.Item>
-        <ListGroup.Item style={{ backgroundColor: "#EEEEEE" }}>
-          Stock: {getStockMessage(product.stock)}
+        <ListGroup.Item className={styles.listGroupItem}>
+          Stock: {getStockMessage(productToUse.stock)}
         </ListGroup.Item>
       </ListGroup>
       <Card.Body>
-        <Card.Link href="#">Comprar Ahora</Card.Link>
-        <Card.Link href="#">Agregar al carrito</Card.Link>
+        <Card.Link href="#" className={styles.cardLink}>Comprar Ahora</Card.Link>
+        <Card.Link href="#" className={styles.cardLink}>Agregar al carrito</Card.Link>
       </Card.Body>
     </Card>
   );
 };
 
-export default ItemDetailsContainer;
+export default withFadeLoader(ItemDetailsContainer);
